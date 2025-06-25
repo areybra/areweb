@@ -1,0 +1,148 @@
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+  --accent: #007bff;
+  --card: #f3f3f3;
+}
+
+body.dark-mode {
+  --bg: #111111;
+  --text: #f0f0f0;
+  --card: #1e1e1e;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+}
+
+header {
+  background: var(--accent);
+  padding: 1em;
+  color: white;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding: 0;
+}
+
+.nav-menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.section {
+  padding: 40px 20px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.profile {
+  text-align: center;
+}
+
+.profile-image {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+}
+
+.social-links img {
+  width: 30px;
+  margin: 10px;
+  transition: transform 0.3s;
+}
+.social-links img:hover {
+  transform: scale(1.2);
+}
+
+.shop-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.item {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.item img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.buy-button {
+  display: inline-block;
+  margin-top: 10px;
+  background: var(--accent);
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+.buy-button:hover {
+  background: #0056b3;
+}
+
+.filter-bar {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: var(--card);
+}
+
+/* Admin Form */
+#admin-form {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+#admin-form input, #admin-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+#admin-form button {
+  background: var(--accent);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.toggle-mode {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}

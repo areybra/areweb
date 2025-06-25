@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Personal Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button class="toggle-mode">🌓 Mode</button>
+  <header>
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#shop">Shop</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="section">
+      <div class="profile">
+        <img src="https://i.postimg.cc/J0Vt4k2g/sa-mp-166.png" alt="Profile" class="profile-image">
+        <h1 class="profile-name">Areybra</h1>
+        <p class="profile-bio">Halo.. ini adalah webiste milik areybra, sebagai web belajar dan berbisnis.</p>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <h2>Contact Me</h2>
+      <p>📞 WhatsApp: <a href="https://wa.me/6282142961010">+62 821-4296-1010</a></p>
+      <p>📧 Email: <a href="mailto:aretaradjawali@gmail.com">aretaradjawali@gmail.com</a></p>
+      <div class="social-links">
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube"></a>
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384014.png" alt="LinkedIn"></a>
+      </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop" class="section">
+      <h2>My Shop</h2>
+      <div class="filter-bar">
+        <input type="text" placeholder="Cari produk..." oninput="filterProducts(this.value)">
+      </div>
+      <div class="shop-items" id="shop-items"></div>
+
+      <!-- Admin Form (Hanya admin yang bisa lihat) -->
+      <div id="admin-panel" style="display:none;">
+        <form id="admin-form">
+          <h3>Tambah Produk</h3>
+          <input type="text" name="productName" placeholder="Nama Produk" required>
+          <textarea name="productDesc" placeholder="Deskripsi Produk" required></textarea>
+          <input type="number" name="productPrice" placeholder="Harga (Rp)" required>
+          <input type="url" name="productImage" placeholder="URL Gambar Produk" required>
+          <button type="submit">Tambah Produk</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Radjaa. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
