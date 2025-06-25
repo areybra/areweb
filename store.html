@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arestore - Aresite</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+    /* CSS untuk Modal */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1000; /* Pastikan di atas semua elemen lain */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.7); /* Latar belakang gelap transparan */
+        display: flex; /* Menggunakan flexbox untuk centering */
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(8px); /* Efek blur yang lebih kuat */
+        -webkit-backdrop-filter: blur(8px); /* Untuk kompatibilitas Safari */
+    }
+
+    .modal-content {
+        background: linear-gradient(135deg, #f0f8ff, #e0f2f7); /* Gradien latar belakang lembut */
+        margin: auto; /* Centered */
+        padding: 35px; /* Padding lebih besar */
+        border: 1px solid rgba(200, 200, 200, 0.5); /* Border lebih halus */
+        width: 90%; /* Lebar responsif */
+        max-width: 450px; /* Lebar maksimum modal */
+        border-radius: 15px; /* Sudut lebih membulat */
+        text-align: center;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* Bayangan yang lebih menonjol */
+        animation: modalOpen 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Animasi bouncy */
+        transform-origin: center; /* Titik asal transformasi */
+        max-height: 85vh; /* Maksimum 85% dari tinggi layar */
+        overflow-y: auto; /* Tambahkan scroll jika konten melebihi tinggi maksimum */
+        color: #333; /* Warna teks default di modal */
+    }
+
+    @keyframes modalOpen {
+        0% { opacity: 0; transform: scale(0.7); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Animasi saat modal ditutup (opsional, butuh JS tambahan) */
+    /* .modal.closing .modal-content {
+        animation: modalClose 0.3s ease-out forwards;
+    }
+    @keyframes modalClose {
+        0% { opacity: 1; transform: scale(1); }
+        100% { opacity: 0; transform: scale(0.7); }
+    } */
+
+    .close-button {
+        color: #888; /* Warna abu-abu yang lebih lembut */
+        position: absolute; /* Tetap relatif terhadap modal-content untuk X */
+        top: 15px;
+        right: 20px;
+        font-size: 32px; /* Ukuran lebih besar */
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.3s ease, transform 0.2s ease-out; /* Transisi untuk hover */
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+        color: #f00; /* Warna merah saat hover */
+        transform: rotate(90deg); /* Sedikit rotasi saat hover */
+        text-decoration: none;
+    }
+
+    h2 {
+        color: #2c3e50; /* Warna biru tua untuk judul */
+        margin-bottom: 25px;
+        font-size: 2em; /* Ukuran judul lebih besar */
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Sedikit bayangan pada judul */
+    }
+
+    p {
+        margin-bottom: 30px;
+        color: #555;
+        line-height: 1.6;
+    }
+
+    #modalProductName,
+    #modalProductPrice {
+        font-weight: bold;
+        color: #007bff; /* Warna biru cerah untuk detail produk */
+        font-size: 1.1em;
+    }
+
+    .payment-option {
+        background: linear-gradient(45deg, #4CAF50, #2E8B57); /* Gradien hijau untuk tombol */
+        color: white;
+        padding: 15px 30px; /* Padding lebih besar */
+        margin: 10px auto; /* Margin atas/bawah, auto untuk horizontal centering */
+        border: none;
+        border-radius: 30px; /* Bentuk pil untuk tombol */
+        cursor: pointer;
+        width: calc(100% - 40px); /* Sesuaikan lebar dengan padding modal */
+        max-width: 300px; /* Lebar maksimum tombol */
+        font-size: 1.1em;
+        font-weight: 600; /* Lebih tebal */
+        letter-spacing: 0.5px; /* Spasi antar huruf */
+        transition: all 0.3s ease; /* Transisi untuk semua properti */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Bayangan tombol */
+        display: block; /* Agar setiap tombol ada di baris baru */
+    }
+
+    /* Warna khusus untuk metode pembayaran */
+    .payment-option:nth-child(even) { /* Contoh: tombol kedua, keempat, dst. */
+        background: linear-gradient(45deg, #FFD700, #DAA520); /* Emas untuk variasi */
+        color: #333; /* Warna teks gelap */
+    }
+    .payment-option:nth-child(odd):not(:first-of-type) { /* Contoh: tombol pertama, ketiga, dst. (selain yang paling awal) */
+        background: linear-gradient(45deg, #8A2BE2, #4B0082); /* Ungu untuk variasi */
+    }
+
+
+    /* Hover dan active state untuk semua tombol */
+    .payment-option:hover {
+        background: linear-gradient(45deg, #5cb85c, #3c763d); /* Gradien sedikit lebih gelap saat hover */
+        transform: translateY(-5px) scale(1.02); /* Efek terangkat lebih tinggi dan sedikit membesar */
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .payment-option:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Aresite</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="store.html">Store</a></li>
+            <li><a href="social.html">Media Social</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="store-page" class="page-header">
+        <div class="container">
+            <h2>Arestore</h2>
+            <div class="store-grid">
+                <div class="product-item">
+                    <img src="https://cdn.discordapp.com/attachments/1385297167505424404/1385902909765451817/sa-mp-132.png?ex=685d082a&is=685bb6aa&hm=da216dafae580c76f5ad0cdb513939ea24ee872f719b50df889c4c5831fb1855&" alt="El Corona Complex">
+                    <h3 id="productName1">El Corona Complex</h3>
+                    <p class="price" id="productPrice1">Rp 10.000</p>
+                    <a href="#" class="btn" onclick="openPaymentModal('productName1', 'productPrice1'); return false;">Beli Sekarang</a>
+                </div>
+                <div class="product-item">
+                    <img src="https://i.postimg.cc/0yp9vNgW/images-4.jpg" alt="Scankey">
+                    <h3 id="productName2">Scan Keylogger</h3>
+                    <p class="price" id="productPrice2">Rp 20.000</p>
+                    <a href="#" class="btn" onclick="openPaymentModal('productName2', 'productPrice2'); return false;">Beli Sekarang</a>
+                </div>
+                <div class="product-item">
+                    <img src="https://i.postimg.cc/43yZ9Q7M/pngtree-keylogger-concept-abstract-components-system-photo-image-19340624.jpg" alt="Keylogger">
+                    <h3 id="productName3">Keylogger SAMP</h3>
+                    <p class="price" id="productPrice3">Rp 50.000</p>
+                    <a href="#" class="btn" onclick="openPaymentModal('productName3', 'productPrice3'); return false;">Beli Sekarang</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Areybra</p>
+    </footer>
+
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closePaymentModal()">&times;</span>
+            <h2>Pilih Metode Pembayaran</h2>
+            <p>Anda akan memesan <span id="modalProductName"></span> dengan harga <span id="modalProductPrice"></span>.</p>
+            <button class="payment-option" onclick="sendWhatsAppMessage('Pulsa')">Pulsa</button>
+            <button class="payment-option" onclick="sendWhatsAppMessage('Dana')">Dana</button>
+            <button class="payment-option" onclick="sendWhatsAppMessage('Ovo')">Ovo</button>
+            <button class="payment-option" onclick="sendWhatsAppMessage('Gopay')">Gopay</button>
+            <button class="payment-option" onclick="sendWhatsAppMessage('Qris dengan pajak +Rp 2.000')">QRIS (+Rp 2.000)</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
