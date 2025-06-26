@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Typing effect (only on the homepage)
     if (document.querySelector('.typing')) {
         var typed = new Typed('.typing', {
-            strings: ["Web Developer", "Desaign Grafis", "Freelancer", "Roleplayer", "Modder", "Mapper"],
+            strings: ["Web Developer", "Design Grafis", "Freelancer", "Roleplayer", "Modder", "Mapper"],
             typeSpeed: 100,
             backSpeed: 60,
             loop: true
